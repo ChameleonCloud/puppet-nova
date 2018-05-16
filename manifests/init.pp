@@ -756,8 +756,8 @@ but should be one of: ssh-rsa, ssh-dsa, ssh-ecdsa.")
   nova_config {
     'cinder/catalog_info':                            value => $cinder_catalog_info;
     'os_vif_linux_bridge/use_ipv6':                   value => $use_ipv6;
-    'DEFAULT/notify_api_faults':                      value => $notify_api_faults;
-    'DEFAULT/notification_format':                    value => $notification_format;
+    'notifications/notify_on_api_faults':             value => $notify_api_faults;
+    'notifications/notification_format':              value => $notification_format;
     # Following may need to be broken out to different nova services
     'DEFAULT/state_path':                             value => $state_path;
     'DEFAULT/service_down_time':                      value => $service_down_time;
@@ -771,10 +771,10 @@ but should be one of: ssh-rsa, ssh-dsa, ssh-ecdsa.")
 
   if $notify_on_state_change and $notify_on_state_change in ['vm_state', 'vm_and_task_state'] {
     nova_config {
-      'DEFAULT/notify_on_state_change': value => $notify_on_state_change;
+      'notifications/notify_on_state_change': value => $notify_on_state_change;
     }
   } else {
-    nova_config { 'DEFAULT/notify_on_state_change': ensure => absent; }
+    nova_config { 'notifications/notify_on_state_change': ensure => absent; }
   }
 
   nova_config {
